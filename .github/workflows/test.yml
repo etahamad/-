@@ -28,5 +28,4 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          echo "downloading some tests"
-          wget https://github.com/PotatoDevices/device_xiaomi_lavender/releases/download/5.0.1/potato_lavender-12-20211230-frico.v5.0.1+1.Cheesy.zip
+          neofetch
