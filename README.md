@@ -8,3 +8,6 @@ configured and optimized for building AOSP fast.
 
 ## - wiki
 [wiki here]
+
+## - roadmap
+Currently - project is still wip and we will inform you whenever it's ready to build.
