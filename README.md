@@ -10,4 +10,4 @@ configured and optimized for building AOSP fast.
 [wiki here]
 
 ## - roadmap
-Currently - project is still wip and we will inform you whenever it's ready to build.
+Currently - project was planned to start closed ALPHA Test phase but got back to wip due to lack of resources.
