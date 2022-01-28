@@ -22,6 +22,16 @@ cd android/source
 repo init -u --depth=1 $androidSourceManifestLink -b $androidSourceBranch
 repo sync -c -j10 --force-sync --no-clone-bundle --no-tags
 
+echo "ccache setup for a12"
+mkdir /ccache
+mkdir tempcc
+umount /ccache
+sudo mount --bind $PWD/tempcc /ccache
+export USE_CCACHE=1
+export CCACHE_EXEC=$(which ccache)
+export CCACHE_DIR=/ccache
+ccache -M 100G -F 0
+
 # dt
 echo "Cloning the device tree..."
 git clone https://github.com/Vitorgl2003/device_xiaomi_lavender device/xiaomi/lavender
@@ -39,7 +49,7 @@ git clone https://github.com/Vitorgl2003/device_xiaomi_extras device/xiaomi/extr
 echo "Building your ROM..."
 . build/env*
 lunch spark_lavender-userdebug # change this to your device lunch command
-mka bacon -j78 # change this to your device build command but keep the -j78
+mka bacon -j60 # change this to your device build command but keep the -j78
 
 echo "Uploading your ROM..."
 finalAndroidBuild=$(ls -U *.zip | head -1)
