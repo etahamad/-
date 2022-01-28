@@ -33,7 +33,7 @@ jobs:
            git config --global color.ui false
       
       - name: Building
-        run: bash .github/workflows/build.sh
+        run: bash build.sh
         env:
           token: ${{ secrets.TELEGRAM_CI_BOT_TOKEN }}
           chat_id: ${{ secrets.TELEGRAM_CI_CHANNEL_ID }}

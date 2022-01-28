@@ -10,8 +10,6 @@ export KBUILD_BUILD_USER="etahamad" # change this to your name
 export KBUILD_BUILD_HOST="the-dash-project" 
 
 # Initial Values
-androidSourceManifest="https://github.com/Spark-Rom/manifest" # change this to your manifest
-androidSourceBranch="spark" # change this to your branch
 deviceName="lavender" # change this to your device name
 deviceBuildLocation="out/target/product/$deviceName"
 
@@ -19,12 +17,12 @@ deviceBuildLocation="out/target/product/$deviceName"
 echo "Cloning the source..."
 mkdir android
 cd android
-repo init --depth=1 -u $androidSourceManifestLink -b $androidSourceBranch
+repo init --depth=1 -u https://github.com/Spark-Rom/manifest -b spark
 repo sync -c -j10 --force-sync --no-clone-bundle --no-tags
 
 echo "ccache setup for a12"
-mkdir /ccache
-mkdir tempcc
+sudo mkdir /ccache
+sudo mkdir tempcc
 umount /ccache
 sudo mount --bind $PWD/tempcc /ccache
 export USE_CCACHE=1
@@ -60,6 +58,7 @@ function uploadToTelegram() {
         -F "disable_web_page_preview=true" \
         -F "parse_mode=html"
 }
+
 uploadToTelegram
 
 echo "Cleaning up..."
