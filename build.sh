@@ -18,7 +18,7 @@ echo "Cloning the source..."
 mkdir android
 cd android
 repo init --depth=1 -u https://github.com/Spark-Rom/manifest -b spark
-repo sync -c -j10 --force-sync --no-clone-bundle --no-tags
+repo sync -c -j8 --force-sync --no-clone-bundle --no-tags
 
 echo "ccache setup for a12"
 sudo mkdir /ccache
@@ -33,8 +33,8 @@ ccache -M 100G -F 0
 # dt
 echo "Cloning the device tree..."
 git clone https://github.com/Vitorgl2003/device_xiaomi_lavender device/xiaomi/lavender
-git clone https://github.com/Vitorgl2003/vendor_xiaomi_lavender vendor/xiaomi/lavender
-git clone https://github.com/Vitorgl2003/kernel_xiaomi_lavender kernel/xiaomi/lavender
+git clone https://github.com/Vitorgl2003/vendor_xiaomi_lavender vendor/xiaomi/lavender --depth=1
+git clone https://github.com/Vitorgl2003/kernel_xiaomi_lavender kernel/xiaomi/lavender --depth=1
 
 git clone https://github.com/Vitorgl2003/device_qcom_sepolicy-legacy-um device/qcom/sepolicy-legacy-um
 git clone https://github.com/Vitorgl2003/platform_hardware_qcom-caf_msm8998_audio hardware/qcom-caf/msm8998/audio
