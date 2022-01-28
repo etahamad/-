@@ -11,7 +11,6 @@ export KBUILD_BUILD_HOST="the-dash-project"
 
 # Initial Values
 deviceName="lavender" # change this to your device name
-deviceBuildLocation="out/target/product/$deviceName"
 
 # Clone the source
 echo "Cloning the source..."
@@ -50,16 +49,14 @@ lunch spark_lavender-userdebug # change this to your device lunch command
 mka bacon -j60 # change this to your device build command but keep the -j78
 
 echo "Uploading your ROM..."
+cd out/target/product/lavender
 finalAndroidBuild=$(ls -U *.zip | head -1)
 
-function uploadToTelegram() {
-    curl -F document=@$finalAndroidBuild "https://api.telegram.org/bot$token/sendDocument" \
-        -F chat_id="$chat_id" \
-        -F "disable_web_page_preview=true" \
-        -F "parse_mode=html"
+function uploadTotransfersh() {
+    curl --upload-file ./finalAndroidBuild https://transfer.sh/finalAndroidBuild
 }
 
-uploadToTelegram
+uploadTotransfersh
 
 echo "Cleaning up..."
 # Clean up
