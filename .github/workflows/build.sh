@@ -17,8 +17,8 @@ deviceBuildLocation="out/target/product/$deviceName"
 
 # Clone the source
 echo "Cloning the source..."
-mkdir android/source
-cd android/source
+mkdir android
+cd android
 repo init -u --depth=1 $androidSourceManifestLink -b $androidSourceBranch
 repo sync -c -j10 --force-sync --no-clone-bundle --no-tags
 
