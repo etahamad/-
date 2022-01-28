@@ -10,4 +10,4 @@ configured and optimized for building AOSP fast.
 [wiki here]
 
 ## - roadmap
-Currently - project is currently in Alpha test.
+ci project is currently offline due to lack of resources.
