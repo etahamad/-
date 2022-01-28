@@ -18,7 +18,7 @@ echo "Cloning the source..."
 mkdir android
 cd android
 repo init --depth=1 -u https://github.com/Spark-Rom/manifest -b spark
-repo sync -c -j8 --force-sync --no-clone-bundle --no-tags
+repo sync -c -j6 --force-sync --no-clone-bundle --no-tags
 
 echo "ccache setup for a12"
 sudo mkdir /ccache
