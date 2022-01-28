@@ -19,7 +19,7 @@ deviceBuildLocation="out/target/product/$deviceName"
 echo "Cloning the source..."
 mkdir android
 cd android
-repo init -u --depth=1 $androidSourceManifestLink -b $androidSourceBranch
+repo init --depth=1 -u $androidSourceManifestLink -b $androidSourceBranch
 repo sync -c -j10 --force-sync --no-clone-bundle --no-tags
 
 echo "ccache setup for a12"
