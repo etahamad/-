@@ -50,10 +50,16 @@ mka bacon -j60 # change this to your device build command but keep the -j78
 
 echo "Uploading your ROM..."
 cd out/target/product/lavender
+
 finalAndroidBuild=$(ls -U *.zip | head -1)
+uploader=$(curl --upload-file ./$finalAndroidBuild https://transfer.sh/$finalAndroidBuild)
 
 function uploadTotransfersh() {
-    curl --upload-file ./finalAndroidBuild https://transfer.sh/finalAndroidBuild
+    curl -s -X POST "https://api.telegram.org/bot$token/sendMessage" \
+         -d chat_id="$chat_id" \
+         -d "disable_web_page_preview=true" \
+         -d "parse_mode=html" \
+         -d text="Your build is ready to be downloaded: $uploader."
 }
 
 uploadTotransfersh
