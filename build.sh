@@ -1,24 +1,24 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # Welcome Page
-echo =============================================
-echo  "Welcome to the build script for - project!"
-echo =============================================
+echo  "Welcome to the build script for etahamad/ci project!"
 
 echo # Enviroment
-export KBUILD_BUILD_USER="etahamad" # change this to your name
-export KBUILD_BUILD_HOST="the-dash-project" 
+export KBUILD_BUILD_USER="etahamad" # change this to your name.
+export KBUILD_BUILD_HOST="etahamadCI" # this tells that you compiled your rom on my project, you can change it or leave it, your call.
 
 # Initial Values
-deviceName="lavender" # change this to your device name
+vCPUs=$(($(nproc --all) - 4)) # number of CPUs - 4, our servers have vCPUs = RAM GB, so we can't use all of them.
+deviceName="lavender" # change this to your device name.
 
 # Clone the source
 echo "Cloning the source..."
 mkdir android
 cd android
-repo init --depth=1 -u https://github.com/Spark-Rom/manifest -b spark
-repo sync -c -j6 --force-sync --no-clone-bundle --no-tags
+repo init --depth=1 -u #source
+repo sync -c -j4 --force-sync --no-clone-bundle --no-tags
 
+# This create a folder at the source directory and bind it to be used as ccache.
 echo "ccache setup for a12"
 sudo mkdir /ccache
 sudo mkdir tempcc
@@ -29,32 +29,19 @@ export CCACHE_EXEC=$(which ccache)
 export CCACHE_DIR=/ccache
 ccache -M 100G -F 0
 
-# dt
-echo "Cloning the device tree..."
-git clone https://github.com/Vitorgl2003/device_xiaomi_lavender device/xiaomi/lavender
-git clone https://github.com/Vitorgl2003/vendor_xiaomi_lavender vendor/xiaomi/lavender --depth=1
-git clone https://github.com/Vitorgl2003/kernel_xiaomi_lavender kernel/xiaomi/lavender --depth=1
-
-git clone https://github.com/Vitorgl2003/device_qcom_sepolicy-legacy-um device/qcom/sepolicy-legacy-um
-git clone https://github.com/Vitorgl2003/platform_hardware_qcom-caf_msm8998_audio hardware/qcom-caf/msm8998/audio
-git clone https://github.com/Vitorgl2003/platform_hardware_qcom-caf_msm8998_display hardware/qcom-caf/msm8998/display
-git clone https://github.com/Vitorgl2003/platform_hardware_qcom-caf_msm8998_media hardware/qcom-caf/msm8998/media
-git clone https://github.com/Vitorgl2003/packages_resources_devicesettings packages/resources/devicesettings
-git clone https://github.com/Vitorgl2003/device_xiaomi_extras device/xiaomi/extras
-
 # Building ROM
 echo "Building your ROM..."
 . build/env*
-lunch spark_lavender-userdebug # change this to your device lunch command
-mka bacon -j60 # change this to your device build command but keep the -j78
+lunch # change this to your device lunch command.
+mka bacon -j$vCPUs
 
 echo "Uploading your ROM..."
-cd out/target/product/lavender
+cd out/target/product/lavender # change this to your device name.
 
 finalAndroidBuild=$(ls -U *.zip | head -1)
 uploader=$(curl --upload-file ./$finalAndroidBuild https://transfer.sh/$finalAndroidBuild)
 
-function uploadTotransfersh() {
+function sendNotify() {
     curl -s -X POST "https://api.telegram.org/bot$token/sendMessage" \
          -d chat_id="$chat_id" \
          -d "disable_web_page_preview=true" \
@@ -62,7 +49,4 @@ function uploadTotransfersh() {
          -d text="Your build is ready to be downloaded: $uploader."
 }
 
-uploadTotransfersh
-
-echo "Cleaning up..."
-# Clean up
+sendNotify
