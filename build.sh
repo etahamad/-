@@ -8,7 +8,6 @@ export KBUILD_BUILD_USER="etahamad" # change this to your name.
 export KBUILD_BUILD_HOST="etahamadCI" # this tells that you compiled your rom on my project, you can change it or leave it, your call.
 
 # Initial Values
-vCPUs=$(($(nproc --all) - 4)) # number of CPUs - 4, our servers have vCPUs = RAM GB, so we can't use all of them.
 deviceName="lavender" # change this to your device name.
 
 # Clone the source
@@ -33,7 +32,7 @@ ccache -M 100G -F 0
 echo "Building your ROM..."
 . build/env*
 lunch # change this to your device lunch command.
-mka bacon -j$vCPUs
+mka bacon -j$(($(nproc --all) - 4)) # number of CPUs - 4, our servers have vCPUs = RAM GB, so we can't use all of them.
 
 echo "Uploading your ROM..."
 cd out/target/product/lavender # change this to your device name.
