@@ -20,8 +20,8 @@ repo sync -c -j4 --force-sync --no-clone-bundle --no-tags
 # This create a folder at the source directory and bind it to be used as ccache.
 echo "ccache setup for a12"
 sudo mkdir /ccache
-sudo mkdir tempcc
-umount /ccache
+mkdir tempcc
+sudo umount /ccache
 sudo mount --bind $PWD/tempcc /ccache
 export USE_CCACHE=1
 export CCACHE_EXEC=$(which ccache)
