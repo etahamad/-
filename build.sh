@@ -37,15 +37,12 @@ mka bacon -j$(($(nproc --all) - 4)) # number of CPUs - 4, our servers have vCPUs
 echo "Uploading your ROM..."
 cd out/target/product/lavender # change this to your device name.
 
-finalAndroidBuild=$(ls -U *.zip | head -1)
-uploader=$(curl --upload-file ./$finalAndroidBuild https://transfer.sh/$finalAndroidBuild)
-
 function sendNotify() {
     curl -s -X POST "https://api.telegram.org/bot$token/sendMessage" \
          -d chat_id="$chat_id" \
          -d "disable_web_page_preview=true" \
          -d "parse_mode=html" \
-         -d text="Your build is ready to be downloaded: $uploader."
+         -d text="Your build is ready to be downloaded: $(curl --upload-file ./$(ls -U *.zip | head -1) \ https://transfer.sh/$(ls -U *.zip | head -1))."
 }
 
 sendNotify
