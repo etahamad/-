@@ -26,7 +26,7 @@ sudo mount --bind $PWD/tempcc /ccache
 export USE_CCACHE=1
 export CCACHE_EXEC=$(which ccache)
 export CCACHE_DIR=/ccache
-ccache -M 100G -F 0
+ccache -M 200G -F 0
 
 # Building ROM
 echo "Building your ROM..."
