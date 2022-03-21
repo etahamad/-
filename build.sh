@@ -19,13 +19,10 @@ repo sync -c -j4 --force-sync --no-clone-bundle --no-tags
 
 # This create a folder at the source directory and bind it to be used as ccache.
 echo "ccache setup for a12"
-sudo mkdir /ccache
 mkdir tempcc
-sudo umount /ccache
-sudo mount --bind $PWD/tempcc /ccache
 export USE_CCACHE=1
-export CCACHE_EXEC=$(which ccache)
-export CCACHE_DIR=/ccache
+export CCACHE_EXEC=/usr/bin/ccache
+export CCACHE_DIR=$PWD/tempcc
 ccache -M 200G -F 0
 
 # Building ROM
