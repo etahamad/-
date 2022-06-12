@@ -14,8 +14,12 @@ deviceName="lavender" # change this to your device name.
 echo "Cloning the source..."
 mkdir android
 cd android
-repo init --depth=1 -u #source
+repo init --depth=1 -u https://github.com/xdroid-oss/xd_manifest -b twelve # manifest
 repo sync -c -j4 --force-sync --no-clone-bundle --no-tags
+
+git clone https://github.com/etahamad/xd_device_xiaomi_lavender device/xiaomi/lavender
+git clone https://github.com/xdroid-devices/xd_vendor_xiaomi_lavender vendor/xiaomi/lavender --depth=1
+git clone https://github.com/xdroid-devices/xd_kernel_xiaomi_lavender kernel/xiaomi/lavender --depth=1
 
 # This create a folder at the source directory and bind it to be used as ccache.
 echo "ccache setup for a12"
@@ -27,9 +31,9 @@ ccache -M 200G -F 0
 
 # Building ROM
 echo "Building your ROM..."
-. build/env*
-lunch # change this to your device lunch command.
-mka bacon -j$(($(nproc --all) - 4)) # number of CPUs - 4, our servers have vCPUs = RAM GB, so we can't use all of them.
+. build/envsetup.sh
+lunch xdroid_lavender-user # change this to your device lunch command.
+mka xd -j$(($(nproc --all) - 4)) # number of CPUs - 4, our servers have vCPUs = RAM GB, so we can't use all of them.
 
 echo "Uploading your ROM..."
 cd out/target/product/lavender # change this to your device name.
