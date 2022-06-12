@@ -33,7 +33,7 @@ ccache -M 200G -F 0
 echo "Building your ROM..."
 . build/envsetup.sh
 lunch xdroid_lavender-user # change this to your device lunch command.
-mka xd -j$(($(nproc --all) - 4)) # number of CPUs - 4, our servers have vCPUs = RAM GB, so we can't use all of them.
+make xd -j$(($(nproc --all) - 4)) # number of CPUs - 4, our servers have vCPUs = RAM GB, so we can't use all of them.
 
 echo "Uploading your ROM..."
 cd out/target/product/lavender # change this to your device name.
