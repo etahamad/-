@@ -28,8 +28,8 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Setting initial vars
         run: |
-           git config --global user.name "Omar Hamad"
-           git config --global user.email "omartldr@gmail.com"
+           git config --global user.name "etahamad"
+           git config --global user.email "etahamad@icloud.com"
            git config --global color.ui false
       
       - name: Building
