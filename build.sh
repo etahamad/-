@@ -43,7 +43,7 @@ function sendNotify() {
          -d chat_id="$chat_id" \
          -d "disable_web_page_preview=true" \
          -d "parse_mode=html" \
-         -d text="Your build is ready to be downloaded: $(curl --upload-file ./$(ls -U *.zip | head -1) \ https://transfer.sh/$(ls -U *.zip | head -1))."
+         -d text="Your build is ready to be downloaded: $(curl --upload-file ./$(ls -U *.zip | head -1) https://transfer.sh/$(ls -U *.zip | head -1))."
 }
 
 sendNotify
