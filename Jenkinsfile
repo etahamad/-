@@ -17,7 +17,7 @@ pipeline {
     }     
     stage('user-system') {
         steps {
-            sh './scripts/build-new.sh $PRODUCT_NAME user'
+            sh './scripts/build-new.sh mka xd $PRODUCT_NAME user'
         }
     }
 }
