@@ -10,4 +10,14 @@ pipeline {
             sh './scripts/repo-sync.sh'
         }
     }
+    stage('user-clean') {
+        steps {
+            sh './scripts/clean.sh mka'
+        }
+    }     
+    stage('user-system') {
+        steps {
+            sh './scripts/build-new.sh $PRODUCT_NAME user'
+        }
+    }
 }
